@@ -12,11 +12,6 @@ a:focus-visible{outline:3px solid var(--pk);outline-offset:3px}
 .bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:linear-gradient(180deg,var(--bg2),var(--bg1) 65%,#f2c4ff)}
 .stars{position:absolute;inset:-200px;background-size:170px;animation:drift 45s linear infinite}
 @keyframes drift{to{background-position:170px 170px}}
-.cloud{position:absolute;left:0;width:var(--w);height:calc(var(--w)*.4);background:var(--cloud);border-radius:99px;animation:fly var(--d) linear infinite}
-.cloud::before,.cloud::after{content:"";position:absolute;background:inherit;border-radius:50%}
-.cloud::before{width:45%;height:110%;left:14%;bottom:30%}
-.cloud::after{width:35%;height:90%;right:16%;bottom:35%}
-@keyframes fly{from{transform:translateX(-400px)}to{transform:translateX(calc(100vw + 60px))}}
 .fl{position:absolute;top:100%;animation:rise var(--d) linear infinite}
 @keyframes rise{0%{transform:translate(0,0) rotate(0)}50%{transform:translate(35px,-55vh) rotate(180deg)}100%{transform:translate(-10px,-115vh) rotate(360deg)}}
 /* cursor glow */
@@ -311,3 +306,36 @@ footer::before{display:none}
 @keyframes sway{0%,100%{transform:translate(0,0) rotate(-7deg) scale(.92);opacity:.78}50%{transform:translate(2px,-6px) rotate(7deg) scale(1.08);opacity:1}}
 .g svg{width:100%;height:100%;fill:var(--c);stroke:var(--c);stroke-width:1.4;stroke-linejoin:round;filter:drop-shadow(0 0 5px color-mix(in srgb,var(--c) 70%,transparent))}
 @media(max-width:780px){.me{--s:min(250px,56vw);--kk:.86;margin:calc(var(--s)*.32) auto}}
+
+/* ===== skills: tabs per category ===== */
+.skillbox{display:block;padding:22px 24px 28px}
+.stabs{display:inline-flex;flex-wrap:wrap;gap:4px;padding:4px;margin-bottom:22px;border-radius:22px;background:color-mix(in srgb,var(--card) 55%,transparent);border:1px solid var(--hair)}
+.stab{font:500 .9rem/1 var(--f);color:var(--ink);background:none;border:0;border-radius:18px;padding:10px 18px;cursor:pointer;white-space:nowrap;transition:background .3s var(--ease),color .3s}
+.stab:hover{background:color-mix(in srgb,var(--pk2) 55%,transparent)}
+.stab[aria-selected=true]{background:var(--pkd);color:#fff;box-shadow:0 6px 16px -6px rgba(217,58,133,.7)}
+.stab:focus-visible{outline:3px solid var(--pk);outline-offset:2px}
+.sgrid{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:12px}
+.sgrid[hidden]{display:none}
+.sk{display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 8px 12px;border-radius:22px;background:var(--chip);border:1px solid var(--hair);transition:transform .35s var(--spring),box-shadow .3s}
+.skillbox.go .sk{animation:skpop .5s var(--spring) backwards;animation-delay:calc(var(--i)*50ms)}
+.sk:hover{transform:translateY(-4px);box-shadow:0 16px 26px -14px var(--sh)}
+.lg{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:#fff;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.lg img{width:32px;height:32px;object-fit:contain}
+.lg .ic{width:26px;height:26px;color:var(--pk)}
+.tp{font:500 .82rem/1.25 var(--f);color:var(--ink);text-align:center}
+@keyframes skpop{from{opacity:0;transform:translateY(12px) scale(.85)}}
+@media(prefers-reduced-motion:reduce){.skillbox.go .sk{animation:none}.sk,.stab{transition:none}}
+@media(max-width:560px){.skillbox{padding:16px 14px 20px}.sgrid{grid-template-columns:repeat(3,1fr);gap:10px}.stab{padding:9px 14px;font-size:.85rem}}
+
+/* ===== projects & experience: no flower badges, no dotted timeline ===== */
+.elist::before,.plist::before{display:none}
+.badge{display:none}
+.pi,.ex{display:block}
+/* ===== judul hero ===== */
+:root{--pkd:#d93a85;--g1:#d93a85;--g2:#9b5de5;--g3:#1f8fb8}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--g1:#ff7ab5;--g2:#c9a0ff;--g3:#6ad4ee}}
+:root[data-theme="dark"]{--g1:#ff7ab5;--g2:#c9a0ff;--g3:#6ad4ee}
+h1{background-image:linear-gradient(120deg,var(--g1),var(--g2) 55%,var(--g3))}
+
+/* about: paragraph spacing */
+.lead p+p{margin-top:14px}

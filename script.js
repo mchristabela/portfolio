@@ -124,13 +124,7 @@ for (i = 0; i < 26; i++) {
     ";opacity:.8";
   bg.append(s);
 }
-addEventListener(
-  "scroll",
-  function () {
-    $(".stars").style.translate = "0 " + -scrollY * 0.12 + "px";
-  },
-  { passive: true },
-);
+addEventListener("scroll", function () {}, { passive: true });
 
 /* data */
 var P = [
@@ -547,7 +541,7 @@ function spark(x, y, big) {
   };
 }
 var calm = matchMedia("(prefers-reduced-motion:reduce)").matches;
-if (matchMedia("(pointer:fine)").matches && !calm) {
+if (false) {
   addEventListener("pointermove", function (e) {
     mx = e.clientX;
     my = e.clientY;
@@ -568,7 +562,7 @@ if (matchMedia("(pointer:fine)").matches && !calm) {
     requestAnimationFrame(loop);
   })();
 } else g.remove();
-if (!calm)
+if (false)
   addEventListener("pointerdown", function (e) {
     for (var k = 0; k < 7; k++) spark(e.clientX, e.clientY, 1);
   });
@@ -592,7 +586,7 @@ if (!calm)
   );
 
   /* bintang berkelip (hanya di langit atas bukit) */
-  for (var i = 0, n = m ? 24 : 45; i < n; i++) {
+  for (var i = 0, n = m ? 16 : 30; i < n; i++) {
     var e = document.createElement("i"),
       big = r() < 0.12,
       z = big ? 3.2 : 1 + r() * 1.6;
@@ -616,8 +610,7 @@ if (!calm)
 
   /* kurangi keramaian: awan 4, sparkle 6-10, awan hanya di langit */
   bg.querySelectorAll(".fl").forEach(function (f, k) {
-    if (k > (m ? 5 : 9)) f.remove();
-    else f.style.opacity = 0.55;
+    f.remove();
   });
 })();
 (function () {

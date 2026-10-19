@@ -2025,3 +2025,66 @@ footer {
     transform 0.3s var(--ease),
     box-shadow 0.3s var(--ease) !important;
 }
+
+/* ---------- SIMPLE MODE: ringan & mulus saat scroll ---------- */
+/* animasi muncul-saat-scroll dimatikan: semua langsung tampil */
+.rv,
+.rv.in,
+.rv.fl,
+.rv.fr {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+/* latar belakang statis (tidak ada yang bergerak di belakang konten) */
+.st,
+.g,
+.aura,
+.halo,
+.orb,
+.fl,
+.cnt {
+  animation: none !important;
+}
+.st {
+  opacity: 0.7;
+}
+.shoot {
+  display: none !important;
+}
+.sp,
+#glow {
+  display: none !important;
+}
+/* navbar: blur besar di elemen yang menempel saat scroll sangat berat */
+.pill {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  background: color-mix(in srgb, var(--card) 92%, transparent) !important;
+}
+/* bagian di luar layar tidak ikut dirender */
+.pi,
+.ex,
+.skills > .box {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 520px;
+}
+/* shadow ringan */
+.box {
+  box-shadow:
+    0 4px 12px -4px var(--sh),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+}
+.box:hover,
+.proj:hover,
+.ex .box:hover {
+  transform: none !important;
+}
+/* galeri foto: snap lebih ringan */
+.scroll {
+  scroll-snap-type: x proximity !important;
+  -webkit-overflow-scrolling: touch;
+}
+.shot img {
+  will-change: auto;
+}

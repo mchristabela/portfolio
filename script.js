@@ -1,3 +1,9 @@
+/* Safari = tampilan penuh. Chrome/lainnya = mode ringan (class "lite") */
+var LITE = !(
+  /Safari/.test(navigator.userAgent) &&
+  !/Chrome|Chromium|CriOS|FxiOS|Edg|Android/.test(navigator.userAgent)
+);
+document.documentElement.classList.toggle("lite", LITE);
 var $ = function (s) {
     return document.querySelector(s);
   },
@@ -124,7 +130,13 @@ for (i = 0; i < 26; i++) {
     ";opacity:.8";
   bg.append(s);
 }
-addEventListener("scroll", function () {}, { passive: true });
+addEventListener(
+  "scroll",
+  function () {
+    if (!LITE) $(".stars").style.translate = "0 " + -scrollY * 0.12 + "px";
+  },
+  { passive: true },
+);
 
 /* data */
 var P = [
@@ -517,7 +529,6 @@ var g = $("#glow"),
   gy = my,
   last = 0;
 function spark(x, y, big) {
-  if (document.getElementsByClassName("sp").length > 14) return;
   var s = document.createElement("span");
   s.className = "sp";
   s.textContent = G[(rnd() * G.length) | 0];
@@ -541,13 +552,13 @@ function spark(x, y, big) {
   };
 }
 var calm = matchMedia("(prefers-reduced-motion:reduce)").matches;
-if (false) {
+if (!LITE && matchMedia("(pointer:fine)").matches && !calm) {
   addEventListener("pointermove", function (e) {
     mx = e.clientX;
     my = e.clientY;
     g.style.opacity = 1;
     var t = performance.now();
-    if (t - last > 110) {
+    if (t - last > 45) {
       last = t;
       spark(mx, my);
     }
@@ -562,7 +573,7 @@ if (false) {
     requestAnimationFrame(loop);
   })();
 } else g.remove();
-if (false)
+if (!calm && !LITE)
   addEventListener("pointerdown", function (e) {
     for (var k = 0; k < 7; k++) spark(e.clientX, e.clientY, 1);
   });
@@ -586,7 +597,7 @@ if (false)
   );
 
   /* bintang berkelip (hanya di langit atas bukit) */
-  for (var i = 0, n = m ? 16 : 30; i < n; i++) {
+  for (var i = 0, n = LITE ? (m ? 16 : 30) : m ? 46 : 95; i < n; i++) {
     var e = document.createElement("i"),
       big = r() < 0.12,
       z = big ? 3.2 : 1 + r() * 1.6;
@@ -610,7 +621,8 @@ if (false)
 
   /* kurangi keramaian: awan 4, sparkle 6-10, awan hanya di langit */
   bg.querySelectorAll(".fl").forEach(function (f, k) {
-    f.remove();
+    if (LITE || k > (m ? 5 : 9)) f.remove();
+    else f.style.opacity = 0.55;
   });
 })();
 (function () {

@@ -1,5 +1,7 @@
 /* Safari = tampilan penuh. Chrome/lainnya = mode ringan (class "lite") */
-var LITE = !(/Safari/.test(navigator.userAgent) && !/Chrome|Chromium|CriOS|FxiOS|Edg|Android/.test(navigator.userAgent));
+/* false = animasi penuh di semua browser. Kalau Chrome mau dibuat ringan lagi, ganti jadi:
+   !(/Safari/.test(navigator.userAgent) && !/Chrome|Chromium|CriOS|FxiOS|Edg|Android/.test(navigator.userAgent)) */
+var LITE = false;
 document.documentElement.classList.toggle("lite", LITE);
 var $ = function (s) {
     return document.querySelector(s);
@@ -594,7 +596,7 @@ if (!calm && !LITE)
   );
 
   /* bintang berkelip (hanya di langit atas bukit) */
-  for (var i = 0, n = LITE ? (m ? 16 : 30) : (m ? 46 : 95); i < n; i++) {
+  for (var i = 0, n = LITE ? (m ? 16 : 30) : m ? 46 : 95; i < n; i++) {
     var e = document.createElement("i"),
       big = r() < 0.12,
       z = big ? 3.2 : 1 + r() * 1.6;

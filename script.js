@@ -270,7 +270,7 @@ var X = [
     y: "2026",
     t: "Freshmen Partner",
     i: "group",
-    img: D("assets/fp", ["fp1.webp", "fp2.webp", "fp3.webp"]),
+    img: D("assets/fp", ["fp1.webp", "fp2.webp", "fp.webp"]),
     d: "Guided and supported freshmen throughout their community service activities, helping them collaborate effectively and engage meaningfully with the local community. Strengthened leadership, communication, teamwork, and problem-solving skills while contributing to positive social impact.",
   },
   {
@@ -523,6 +523,7 @@ var g = $("#glow"),
   gy = my,
   last = 0;
 function spark(x, y, big) {
+  if (document.getElementsByClassName("sp").length > 14) return;
   var s = document.createElement("span");
   s.className = "sp";
   s.textContent = G[(rnd() * G.length) | 0];
@@ -552,7 +553,7 @@ if (matchMedia("(pointer:fine)").matches && !calm) {
     my = e.clientY;
     g.style.opacity = 1;
     var t = performance.now();
-    if (t - last > 45) {
+    if (t - last > 110) {
       last = t;
       spark(mx, my);
     }
@@ -591,7 +592,7 @@ if (!calm)
   );
 
   /* bintang berkelip (hanya di langit atas bukit) */
-  for (var i = 0, n = m ? 46 : 95; i < n; i++) {
+  for (var i = 0, n = m ? 24 : 45; i < n; i++) {
     var e = document.createElement("i"),
       big = r() < 0.12,
       z = big ? 3.2 : 1 + r() * 1.6;

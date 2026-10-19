@@ -1970,3 +1970,58 @@ footer {
 .bg {
   will-change: transform;
 }
+
+/* ---------- PERFORMANCE FIX 2 (animasi patah-patah di Chrome) ---------- */
+/* layer raksasa dari will-change sebelumnya malah berat: dibuang */
+.bg,
+.stars {
+  will-change: auto;
+}
+/* bintang: cukup kedip opacity, tanpa scale & glow animasi */
+.st {
+  animation-name: twO;
+}
+@keyframes twO {
+  50% {
+    opacity: var(--so);
+  }
+}
+.st.big {
+  box-shadow: none;
+}
+/* sparkle di sekitar foto: drop-shadow yang beranimasi = repaint tiap frame */
+.g svg {
+  filter: none !important;
+}
+/* halo bermask yang berputar terus = paling mahal di Chrome */
+.halo {
+  animation: none !important;
+}
+/* orb dengan shadow blur besar + animasi dibuat diam */
+.orb {
+  animation: none !important;
+}
+/* glow kursor: blend mode memaksa Chrome compose ulang seluruh layar */
+#glow,
+:root[data-theme="dark"] #glow {
+  mix-blend-mode: normal !important;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) #glow {
+    mix-blend-mode: normal !important;
+  }
+}
+/* reveal saat scroll lebih singkat supaya tidak numpuk */
+.rv {
+  transition:
+    opacity 0.5s ease,
+    transform 0.6s var(--ease) !important;
+}
+.rv .badge {
+  transition-duration: 0.5s !important;
+}
+.box {
+  transition:
+    transform 0.3s var(--ease),
+    box-shadow 0.3s var(--ease) !important;
+}

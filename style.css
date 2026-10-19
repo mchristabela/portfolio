@@ -1923,3 +1923,50 @@ h1 {
 .lead p + p {
   margin-top: 14px;
 }
+/* ---------- PERFORMANCE FIX (Chrome) ----------
+   backdrop-filter di setiap .box/.it/.btn/.arr + animasi bergerak di belakangnya
+   bikin Chrome harus nge-blur ulang tiap frame. Di sini blur-nya dimatikan
+   dan diganti background yang lebih solid supaya tampilan tetap mirip kaca. */
+.box,
+.it,
+.btn.alt,
+.arr,
+footer {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.box {
+  background:
+    linear-gradient(145deg, var(--glare), transparent 55%),
+    color-mix(in srgb, var(--b, var(--card)) 88%, transparent) !important;
+}
+.it {
+  background: color-mix(in srgb, var(--card) 70%, transparent);
+}
+footer {
+  background: color-mix(in srgb, var(--card) 90%, transparent) !important;
+}
+.arr {
+  background: #fff !important;
+}
+.btn.alt {
+  background: color-mix(in srgb, var(--card) 85%, transparent) !important;
+}
+/* box besar tidak perlu shadow blur lebar */
+.box {
+  box-shadow:
+    0 8px 20px -8px var(--sh),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55) !important;
+}
+/* blur di aura foto profil dibuang (animasinya jalan terus) */
+.aura {
+  filter: none !important;
+}
+/* layer sendiri untuk elemen yang selalu bergerak */
+.stars,
+.halo,
+.aura,
+.orbits,
+.bg {
+  will-change: transform;
+}
